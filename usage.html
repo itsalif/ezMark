@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>ezMark jQuery Plugin - Stylize Checkbox and Radio Button Easily</title>
+<link rel="stylesheet" href="css/ezmark.css" media="all" />
+<style type="text/css">
+/** basic styles **/
+body {
+    font-size: 62.5%;
+    font-family: Verdana, Arial, Helvetica;    
+    padding: 0; margin: 10px;
+    line-height: 200%;
+}
+
+.body-wrap { font-size: 1.2em; }
+pre, code { font-size: 1.1em; }
+
+.odd { background-color: #F2FAFC; }
+th { text-align: left; }
+
+h2 {
+    border-bottom: solid 1px #069;
+}
+
+pre {
+    background-color:#fafafa;
+    padding: 5px;
+    border: solid 1px #ccc;
+}
+
+.error {
+  color: #D8000C;
+  background-color: #FFBABA;
+  padding: 10px; 
+  border: solid 1px #D8000C;
+}
+
+.example {
+	border: dotted 1px #ccc;
+	padding: 10px;
+	margin: 10px;
+}
+
+</style>
+
+</head>
+<body>
+	<div class="body-wrap">
+		<h2>ezMark jQuery Plugin</h2>
+		<p>
+			ezMark is a jQuery Plugin that can style checkbox and radiobutton easily. ezMark uses an image replacement for checkbox and radiobutton. Unlike most other 
+			script which requires a lot of code, ezMark is very small (minified version is ~1.5kb) and it gracefully degrades. <br /><br />
+			Online Documentation can be read here: <a href="http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin" title="ezMark jQuery Plugin">http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin</a>
+			<br />
+			Check out online demo here: <a href="http://www.itsalif.info/content/demo-ezmark-jquery-plugin" title="ezmark jquery demo">http://www.itsalif.info/content/demo-ezmark-jquery-plugin</a>	
+		</p>
+		<h2>Requirements</h2>
+		<p>
+			- jQuery 1.3+ 
+		</p>
+		<h2>File Structure</h2>
+		<p>
+			ezMark comes with the following files:
+			<pre>
+ js/ezmark.jquery.js    - The Plugin File
+ css/ezmark.css         - The CSS File for styling
+ images/                - The replacement images for checkbox and radiobutton
+  checkbox-black.png
+  checkbox-red.png
+  radio-black.png</pre>
+  			
+		</p>
+		<h2>How to use: Basic</h2>	
+		<p>
+			At first include the default CSS File and JS File
+			<pre>&lt;link&gt; href="cs/ezmark.css" rel="stylesheet" /&gt; 
+&lt;script type="text/javascript" language="Javascript" src="jquery.ezmark.js"&gt;&lt;/script&gt;</pre>
+			<br />
+			Basic Syntax:
+			<pre>$('selector').ezMark([options]);</pre>
+			<br />
+			To apply on all checkbox and radio button across the page, use:
+			<pre>$('input').ezMark();</pre>
+This should apply the styling to all the checkbox and radio button across the page based on the CSS.
+			<br /><br />
+			To style <u>only checkbox</u>, use:
+			<pre>$('input[type="checkbox"]').ezMark();</pre>
+			<br />
+			Likewise, to style <u>only radio button</u>, use:
+			<pre>$('input[type="radio"]').ezMark();</pre>
+		</p>
+		<h2>How to use: Customization</h2>
+		<p>
+			To use multiple styled checkbox in the same page, at first declare a class in the CSS for the new checkbox/radiobutton. For example:
+			<pre>.ez-checkbox-green { background: transparent url('../images/checkbox-green.png') 0 1px no-repeat; display:inline-block; }
+.ez-checked-green { background-position: 0 -18px; }</pre>
+			Then call:
+			<pre>$('selector').ezMark({checkboxCls: 'ez-checkbox-green', checkedCls: 'ez-checked-green'});</pre>
+			The method ezMark accepts the following optional parameters as JSON
+
+<table width="95%">
+<thead>
+<tr>
+	<th>Parameter's (JSON) Properties:</th>
+	<th>Explanation/Details of the Property</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td width="30%">checkboxCls</td>
+<td>The Checkbox Class as per declaration on CSS.</td>
+</tr>
+
+<tr class="odd">
+<td>checkedCls</td>
+<td>The Checkbox Class on Checked State</td>
+</tr>
+<tr>
+<td width="30%">radioCls</td>
+<td>The Radio button's Class as per CSS</td>
+</tr>
+<tr class="odd">
+<td width="30%">selectedCls</td>
+<td>The Radio Button's Class on selected State</td>
+</tr>
+</tbody>
+</table>		
+			 
+			
+		</p>
+		<h2>Example</h2>
+		<div class="example">
+		
+<form id="testForm" action="#" method="post">
+<p class="defaultP">
+	Single Checkbox Demo: <br />
+	<input type="checkbox" name="soccer_like" value="1" id="soccer_like"><label for="soccer_like">I like Soccer</label>	
+</p>	
+<p class="defaultP">
+	Shopping Items (Multiple Checkbox): <br />
+	<input type="checkbox" name="item[]" id="banana" value="banana" /> <label for="banana">Banana</label> <br />
+	<input type="checkbox" name="item[]" id="apple" value="apple" /> <label for="apple">Apple</label> <br />
+	<input type="checkbox" name="item[]" id="coke" value="coke" /> <label for="coke">Coke</label> <br />
+	<input type="checkbox" name="item[]" id="pineapple" value="pineapple" /> <label for="pineapple">Pineapple</label> <br />
+</p>
+
+<p class="defaultP">
+	House contract (Grouped Radio button): <br />
+	<input type="radio" name="month" value="6" id="month6" /> <label for="month6">6 month Contract</label> <br />
+	<input type="radio" name="month" value="3" id="month3" /> <label for="month3">3 month Contract</label> <br />	
+	<input type="radio" name="month" value="12" id="month12" /> <label for="month12">12 month Contract</label> <br />
+</p>
+
+<p class="customP">
+	Custom Checkbox: <br />
+	<input type="checkbox" name="jquery_like" id="jquery_like" value="1" /><label for="jquery_like">I Like jQuery</label>
+</p>	
+
+<input type="submit" name="Submit" value="Submit me!" />
+
+</form>
+		</div>
+		
+	</div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.ezmark.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('.defaultP input').ezMark();
+	$('.customP input[type="checkbox"]').ezMark({checkboxCls: 'ez-checkbox-green', checkedCls: 'ez-checked-green'})
+});	
+</script>	
+</body>
+</html>
