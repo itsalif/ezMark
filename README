@@ -29,10 +29,10 @@
   Optional Parameter accepts the following JSON properties:
   
   Parameter's (JSON) Properties: 	Explanation/Details of the Property
-	checkboxCls 					The Checkbox Class as per declaration on CSS.
-	checkedCls 						The Checkbox Class on Checked State
-	radioCls 						The Radio button's Class as per CSS
-	selectedCls 					The Radio Button's Class on selected State
+   checkboxCls 					     The Checkbox Class as per declaration on CSS.
+   checkedCls 					     The Checkbox Class on Checked State
+   radioCls 					     The Radio button's Class as per CSS
+   selectedCls 					     The Radio Button's Class on selected State
 
   To customize the default checkbox/radiobutton image, change the background image 
   (checkbox-black.png/radio-black.png) and CSS (ez-checkbox/ez-radio) and (ez-checked/ez-selected) accordingly.
