@@ -11,18 +11,21 @@ How to Use
 
   At first include the CSS and JS files.
   
-  * CSS:  <link rel="stylesheet" href="css/ezmark.css" media="all">
-  * JS:  <script type="text/javascript" language="Javascript" src="jquery.ezmark.js"></script>
+  * CSS:  &lt;link rel="stylesheet" href="css/ezmark.css" media="all"&gt;
+  * JS:  &lt;script type="text/javascript" language="Javascript" src="jquery.ezmark.js"&gt;&lt;/script&gt;
   
-  Then simply call the following method:
+  * Then simply call the following method:
+  
   $('selector').ezMark([options]);  
   
+  
   You can customize to selector to apply only to checkbox or radiobuttons, like below:
-  // to apply only to checkbox use:
-  $('input[type="checkbox"]').ezMark();
 
-  // for only radio buttons:
-  $('input[type="radio"]').ezMark();
+  
+  $('input[type="checkbox"]').ezMark(); // to apply only to checkbox use
+
+
+  $('input[type="radio"]').ezMark(); // for only radio buttons
 
   
 Parameters / Options
