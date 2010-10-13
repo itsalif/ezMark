@@ -1,5 +1,5 @@
-ezMark jQuery Plugin v 1.1
---------------------------
+ezMark jQuery Plugin
+====================
 
   ezMark is a jQuery Plugin that allows you to stylize Radio button and Checkbox easily. Its very small 
   (minified version is ~1.5kb) compared to other similar scripts. It has been tested and works on all 
@@ -14,7 +14,7 @@ How to Use
   * CSS:  &lt;link rel="stylesheet" href="css/ezmark.css" media="all"&gt;
   * JS:  &lt;script type="text/javascript" language="Javascript" src="jquery.ezmark.js"&gt;&lt;/script&gt;
   
-  * Then simply call the following method:
+  Then simply call the following method:
   
   $('selector').ezMark([options]);  
   
