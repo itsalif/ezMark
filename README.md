@@ -28,29 +28,14 @@ How to Use
   $('input[type="radio"]').ezMark(); // for only radio buttons
 
   
-Parameters / Options
---------------------
-
-  Optional Parameter accepts the following JSON properties:
-  
-  Parameter's (JSON) Properties:    Explanation/Details of the Property
-   checkboxCls                       The Checkbox Class as per declaration on CSS.
-   checkedCls                        The Checkbox Class on Checked State
-   radioCls                          The Radio button's Class as per CSS
-   selectedCls                       The Radio Button's Class on selected State
-
-  * To customize the default checkbox/radiobutton image, change the background image 
-  (checkbox-black.png/radio-black.png) and CSS (ez-checkbox/ez-radio) and 
-  (ez-checked/ez-selected) accordingly.
-  
-  * For detailed usage, please check out usage.html file.
+  For detailed usage, please check out usage.html file.
   
   
 Online Documentation / Demo
 ---------------------------
 
-* Online Documentation: http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin
+* Online Documentation: <http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin>
   
-* Online Demo: http://www.itsalif.info/content/demo-ezmark-jquery-plugin/
+* Online Demo: <http://www.itsalif.info/content/demo-ezmark-jquery-plugin/>
   
      
