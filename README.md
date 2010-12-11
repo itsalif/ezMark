@@ -39,3 +39,8 @@ Online Documentation / Demo
 * Online Demo: <http://www.itsalif.info/content/demo-ezmark-jquery-plugin/>
   
      
+License & Policy
+---------------------------
+
+Copyright (c) 2010 Abdullah Rubiyath <http://www.itsalif.info>. 
+The script has been released under MIT License.
