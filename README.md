@@ -11,21 +11,37 @@ How to Use
 
   At first include the CSS and JS files.
   
-  * CSS:  &lt;link rel="stylesheet" href="css/ezmark.css" media="all"&gt;
-  * JS:  &lt;script type="text/javascript" language="Javascript" src="jquery.ezmark.js"&gt;&lt;/script&gt;
+  <pre>
+  &lt;link rel="stylesheet" href="css/ezmark.css" media="all"&gt;
+  </pre>
+  
+  <pre>
+  &lt;script type="text/javascript" language="Javascript" src="jquery.ezmark.js"&gt;&lt;/script&gt;
+  </pre>
+  
+  Declare the HTML tags as you normally would:
+  
+  <pre>
+  &lt;input type="checkbox" name="customerAge" id="age" /&gt;&lt;label for="age"&gt;Age&lt;label/&gt;
+  </pre>
+  
   
   Then simply call the following method:
   
-  $('selector').ezMark([options]);  
+  <pre>
+  $('selector').ezMark([options]);
+  </pre>  
   
   
   You can customize to selector to apply only to checkbox or radiobuttons, like below:
 
-  
-  $('input[type="checkbox"]').ezMark(); // to apply only to checkbox use
+  <pre>
+  $('input[type="checkbox"]').ezMark(); 
+  </pre>
 
-
-  $('input[type="radio"]').ezMark(); // for only radio buttons
+  <pre>
+  $('input[type="radio"]').ezMark();
+  </pre>
 
   
   For detailed usage, please check out usage.html file.
