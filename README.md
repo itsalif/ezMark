@@ -34,11 +34,13 @@ How to Use
   
   
   You can customize to selector to apply only to checkbox or radiobuttons, like below:
-
+  
+  Only apply to Checkbox:
   <pre>
   $('input[type="checkbox"]').ezMark(); 
   </pre>
 
+  Only apply to Radiobutttons:
   <pre>
   $('input[type="radio"]').ezMark();
   </pre>
