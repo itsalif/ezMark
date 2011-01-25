@@ -16,62 +16,58 @@
  * 	$('selector').ezMark([options]);
  *  
  * [options] accepts following JSON properties:
- *  checkboxCls - custom Checkbox Class
- *  checkedCls  - checkbox Checked State's Class
- *  radioCls    - custom radiobutton Class
- *  selectedCls - radiobutton's Selected State's Class
+ *  checkboxClass - custom checkbox class
+ *  checkedClass  - checked state's class
+ *  radioClass    - custom radiobutton class
  *  
  * </usage>
  * 
  * View Documention/Demo here:
  * http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin
  * 
- * @author Abdullah Rubiyath
- * @version 1.0
- * @date June 27, 2010
+ * @author Abdullah Rubiyath, Gregory Waxman
+ * @version 2.0
+ * @date January 25, 2011
  */
 
-(function($) {
-  $.fn.ezMark = function(options) {
-	options = options || {}; 
-	var defaultOpt = { 
-		checkboxCls   	: options.checkboxCls || 'ez-checkbox' , radioCls : options.radioCls || 'ez-radio' ,	
-		checkedCls 		: options.checkedCls  || 'ez-checked'  , selectedCls : options.selectedCls || 'ez-selected' , 
-		hideCls  	 	: 'ez-hide'
-	};
-    return this.each(function() {
-    	var $this = $(this);
-    	var wrapTag = $this.attr('type') == 'checkbox' ? '<div class="'+defaultOpt.checkboxCls+'">' : '<div class="'+defaultOpt.radioCls+'">';
-    	// for checkbox
-    	if( $this.attr('type') == 'checkbox') {
-    		$this.addClass(defaultOpt.hideCls).wrap(wrapTag).change(function() {
-    			if( $(this).is(':checked') ) { 
-    				$(this).parent().addClass(defaultOpt.checkedCls); 
-    			} 
-    			else {	$(this).parent().removeClass(defaultOpt.checkedCls); 	}
-    		});
-    		
-    		if( $this.is(':checked') ) {
-				$this.parent().addClass(defaultOpt.checkedCls);    		
-    		}
-    	} 
-    	else if( $this.attr('type') == 'radio') {
+(function ($) {
+    $.fn.ezMark = function (options) {
+        var defaults = {
+            checkboxClass: 'ez-checkbox', 
+            radioClass: 'ez-radio',
+            checkedClass: 'ez-checked', 
+            hideClass: 'ez-hide'
+        };
 
-    		$this.addClass(defaultOpt.hideCls).wrap(wrapTag).change(function() {
-    			// radio button may contain groups! - so check for group
-   				$('input[name="'+$(this).attr('name')+'"]').each(function() {
-   	    			if( $(this).is(':checked') ) { 
-   	    				$(this).parent().addClass(defaultOpt.selectedCls); 
-   	    			} else {
-   	    				$(this).parent().removeClass(defaultOpt.selectedCls);     	    			
-   	    			}
-   				});
-    		});
-    		
-    		if( $this.is(':checked') ) {
-				$this.parent().addClass(defaultOpt.selectedCls);    		
-    		}    		
-    	}
+        $.extend(defaults, options)
+
+        return this.each(function () {
+            var type = this.type;
+
+            if ((type === 'radio' || type === 'checkbox') && !$.data(this, 'ezmark-checkedclass')) {
+                var $this = $(this);
+                var className = type === 'checkbox' ? defaults.checkboxClass : defaults.radioClass;
+            
+                $this.addClass(defaults.hideClass + ' ez-mark-del').wrap('<div class="' + className + '">');
+                this.checked && $this.parent().addClass(defaults.checkedClass);
+                $.data(this, 'ezmark-checkedclass', defaults.checkedClass); 
+            }
+        });
+    }
+
+    $(function () {        
+        $(document.body).delegate('.ez-mark-del', 'change', function () {
+            var $this = $(this);
+            var type = this.type;
+            var className = $.data(this, 'ezmark-checkedclass');
+
+            if (type === 'checkbox') {                
+                $this.parent().[(this.checked ? 'add' : 'remove')+'Class'](className);
+            }
+            else if (type === 'radio') {
+                $('input[name="' + this.name + '"]').parent().removeClass(className);
+                this.checked && $this.parent().addClass(className);
+            }
+        });
     });
-  }
 })(jQuery);
