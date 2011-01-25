@@ -62,7 +62,7 @@
             var className = $.data(this, 'ezmark-checkedclass');
 
             if (type === 'checkbox') {                
-                $this.parent().[(this.checked ? 'add' : 'remove')+'Class'](className);
+                $this.parent()[(this.checked ? 'add' : 'remove')+'Class'](className);
             }
             else if (type === 'radio') {
                 $('input[name="' + this.name + '"]').parent().removeClass(className);
