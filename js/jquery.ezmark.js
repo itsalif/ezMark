@@ -31,12 +31,16 @@
  */
 
 (function ($) {
+    var NAMESPACE = 'ezmark';
+    var DELEGATE_CLASS = NAMESPACE + '-del';
+
     $.fn.ezMark = function (options) {
         var defaults = {
-            checkboxClass: 'ez-checkbox', 
-            radioClass: 'ez-radio',
-            checkedClass: 'ez-checked', 
-            hideClass: 'ez-hide'
+            checkboxClass: NAMESPACE + '-checkbox',
+            radioClass: NAMESPACE + '-radio',
+            checkedClass: NAMESPACE + '-checked',
+            hideClass: NAMESPACE + '-hide',
+            hoverClass: NAMESPACE + '-hover'
         };
 
         $.extend(defaults, options)
@@ -44,30 +48,48 @@
         return this.each(function () {
             var type = this.type;
 
-            if ((type === 'radio' || type === 'checkbox') && !$.data(this, 'ezmark-checkedclass')) {
+            if ((type === 'radio' || type === 'checkbox') && !$.data(this, NAMESPACE)) {
                 var $this = $(this);
                 var className = type === 'checkbox' ? defaults.checkboxClass : defaults.radioClass;
-            
-                $this.addClass(defaults.hideClass + ' ez-mark-del').wrap('<div class="' + className + '">');
-                this.checked && $this.parent().addClass(defaults.checkedClass);
-                $.data(this, 'ezmark-checkedclass', defaults.checkedClass); 
+
+                $this.addClass(defaults.hideClass + ' ' + DELEGATE_CLASS).wrap('<div class="' + className + ' ' + DELEGATE_CLASS + '">');
+                var $parent = $this.parent();
+                this.checked && $parent.addClass(defaults.checkedClass);
+                $('label[for=' + this.id + ']').addClass(DELEGATE_CLASS);
+                $.data(
+                    $parent[0],
+                    NAMESPACE,
+                    {
+                        classNames: {
+                            checkedClass: defaults.checkedClass,
+                            hoverClass: defaults.hoverClass
+                        }
+                    }
+                );
             }
         });
     }
 
-    $(function () {        
-        $(document.body).delegate('.ez-mark-del', 'change', function () {
+    $(function () {
+        $(document.body).delegate('input.' + DELEGATE_CLASS, 'change', function () {
             var $this = $(this);
             var type = this.type;
-            var className = $.data(this, 'ezmark-checkedclass');
+            var $parent = $this.parent();
+            var parent = $parent[0];
+            var className = $.data(parent, NAMESPACE).classNames.checkedClass;
 
-            if (type === 'checkbox') {                
-                $this.parent()[(this.checked ? 'add' : 'remove')+'Class'](className);
+            if (type === 'checkbox') {
+                $parent[(this.checked ? 'add' : 'remove') + 'Class'](className);
             }
             else if (type === 'radio') {
                 $('input[name="' + this.name + '"]').parent().removeClass(className);
-                this.checked && $this.parent().addClass(className);
+                this.checked && $parent.addClass(className);
             }
+        }).delegate('div.' + DELEGATE_CLASS, 'hover', function () {
+            $(this).toggleClass($.data(this, NAMESPACE).classNames.hoverClass);
+        }).delegate('label.' + DELEGATE_CLASS, 'hover', function () {
+            var $divWrapper = $('#' + this.htmlFor).parent();
+            $divWrapper.toggleClass($.data($divWrapper[0], NAMESPACE).classNames.hoverClass);
         });
     });
 })(jQuery);
