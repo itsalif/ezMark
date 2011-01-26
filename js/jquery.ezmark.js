@@ -16,10 +16,12 @@
  * 	$('selector').ezMark([options]);
  *  
  * [options] accepts following JSON properties:
- *  checkboxClass - custom checkbox class
- *  checkedClass  - checked state's class
- *  radioClass    - custom radiobutton class
- *  
+ *  checkboxClass   - class applied to wrapping container (div) of a checkbox input
+ *  checkedClass    - class applied to wrapping container when the input is checked
+ *  radioClass      - class applied to the wrapping container (div) of a radio input
+ *  hideClass       - class applied to the input
+ *  hoverClass      - class applied while hovering over the label or div
+ *  labelClass      - class applied to associated label for custom input
  * </usage>
  * 
  * View Documention/Demo here:
@@ -40,7 +42,8 @@
             radioClass: NAMESPACE + '-radio',
             checkedClass: NAMESPACE + '-checked',
             hideClass: NAMESPACE + '-hide',
-            hoverClass: NAMESPACE + '-hover'
+            hoverClass: NAMESPACE + '-hover',
+            labelClass: NAMESPACE + '-label'
         };
 
         $.extend(defaults, options)
@@ -55,7 +58,7 @@
                 $this.addClass(defaults.hideClass + ' ' + DELEGATE_CLASS).wrap('<div class="' + className + ' ' + DELEGATE_CLASS + '">');
                 var $parent = $this.parent();
                 this.checked && $parent.addClass(defaults.checkedClass);
-                $('label[for=' + this.id + ']').addClass(DELEGATE_CLASS);
+                $('label[for=' + this.id + ']').addClass(defaults.labelClass + ' ' + DELEGATE_CLASS);
                 $.data(
                     $parent[0],
                     NAMESPACE,
@@ -92,4 +95,4 @@
             $divWrapper.toggleClass($.data($divWrapper[0], NAMESPACE).classNames.hoverClass);
         });
     });
-})(jQuery);
+}(jQuery));
