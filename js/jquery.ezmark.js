@@ -1,36 +1,36 @@
 /**
- * ezMark - A Simple Checkbox and Radio button Styling plugin. 
- * This plugin allows you to use a custom Image for Checkbox or Radio button. Its very simple, small and easy to use.
- * 
- * Copyright (c) Abdullah Rubiyath <http://www.itsalif.info/>.
- * Released under MIT License
- * 
- * Files with this plugin:
- * - jquery.ezmark.js
- * - ezmark.css
- * 
- * <usage>
- * At first, include both the css and js file at the top
- * 
- * Then, simply use: 
- * 	$('selector').ezMark([options]);
- *  
- * [options] accepts following JSON properties:
- *  checkboxClass   - class applied to wrapping container (div) of a checkbox input
- *  checkedClass    - class applied to wrapping container when the input is checked
- *  radioClass      - class applied to the wrapping container (div) of a radio input
- *  hideClass       - class applied to the input
- *  hoverClass      - class applied while hovering over the label or div
- *  labelClass      - class applied to associated label for custom input
- * </usage>
- * 
- * View Documention/Demo here:
- * http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin
- * 
- * @author Abdullah Rubiyath, Gregory Waxman
- * @version 2.0
- * @date January 25, 2011
- */
+* ezMark - A Simple Checkbox and Radio button Styling plugin. 
+* This plugin allows you to use a custom Image for Checkbox or Radio button. Its very simple, small and easy to use.
+* 
+* Copyright (c) Abdullah Rubiyath <http://www.itsalif.info/>.
+* Released under MIT License
+* 
+* Files with this plugin:
+* - jquery.ezmark.js
+* - ezmark.css
+* 
+* <usage>
+* At first, include both the css and js file at the top
+* 
+* Then, simply use: 
+*   $('selector').ezMark([options]);
+*  
+* [options] accepts following JSON properties:
+*  checkboxClass   - class applied to wrapping container (div) of a checkbox input
+*  checkedClass    - class applied to wrapping container when the input is checked
+*  radioClass      - class applied to the wrapping container (div) of a radio input
+*  hideClass       - class applied to the input
+*  hoverClass      - class applied while hovering over the label or div
+*  labelClass      - class applied to associated label for custom input
+* </usage>
+* 
+* View Documention/Demo here:
+* http://www.itsalif.info/content/ezmark-jquery-checkbox-radiobutton-plugin
+* 
+* @author Abdullah Rubiyath, Gregory Waxman
+* @version 2.0
+* @date January 25, 2011
+*/
 
 (function ($) {
     var NAMESPACE = 'ezmark';
@@ -43,22 +43,41 @@
             checkedClass: NAMESPACE + '-checked',
             hideClass: NAMESPACE + '-hide',
             hoverClass: NAMESPACE + '-hover',
-            labelClass: NAMESPACE + '-label'
+            labelClass: NAMESPACE + '-label',
+            labelCheckboxClass: NAMESPACE + '-label-checkbox',
+            labelRadioClass: NAMESPACE + '-label-radio'
         };
 
-        $.extend(defaults, options)
+        $.extend(defaults, options);
 
         return this.each(function () {
             var type = this.type;
 
             if ((type === 'radio' || type === 'checkbox') && !$.data(this, NAMESPACE)) {
                 var $this = $(this);
-                var className = type === 'checkbox' ? defaults.checkboxClass : defaults.radioClass;
+                var classNames;
 
-                $this.addClass(defaults.hideClass + ' ' + DELEGATE_CLASS).wrap('<div class="' + className + ' ' + DELEGATE_CLASS + '">');
+                if (type === 'checkbox') {
+                    classNames = {
+                        input: defaults.checkboxClass,
+                        label: defaults.labelCheckboxClass
+                    };
+                }
+                else {
+                    classNames = {
+                        input: defaults.radioClass,
+                        label: defaults.labelRadioClass
+                    };
+                }
+
+                $this.addClass(defaults.hideClass + ' ' + DELEGATE_CLASS).wrap('<div class="' + classNames.input + ' ' + DELEGATE_CLASS + '">');
                 var $parent = $this.parent();
-                this.checked && $parent.addClass(defaults.checkedClass);
-                $('label[for=' + this.id + ']').addClass(defaults.labelClass + ' ' + DELEGATE_CLASS);
+
+                if (this.checked) {
+                    $parent.addClass(defaults.checkedClass);
+                }
+
+                $('label[for=' + this.id + ']').addClass(defaults.labelClass + ' ' + DELEGATE_CLASS + ' ' + classNames.label);
                 $.data(
                     $parent[0],
                     NAMESPACE,
@@ -71,7 +90,7 @@
                 );
             }
         });
-    }
+    };
 
     $(function () {
         $(document.body).delegate('input.' + DELEGATE_CLASS, 'change', function () {
@@ -86,7 +105,9 @@
             }
             else if (type === 'radio') {
                 $('input[name="' + this.name + '"]').parent().removeClass(className);
-                this.checked && $parent.addClass(className);
+                if (this.checked) {
+                    $parent.addClass(className);
+                }
             }
         }).delegate('div.' + DELEGATE_CLASS, 'hover', function () {
             $(this).toggleClass($.data(this, NAMESPACE).classNames.hoverClass);
