@@ -53,7 +53,7 @@
         return this.each(function () {
             var type = this.type;
 
-            if ((type === 'radio' || type === 'checkbox') && !$.data(this, NAMESPACE)) {
+            if ((type === 'radio' || type === 'checkbox') && !$.data(this.parentNode, NAMESPACE)) {
                 var $this = $(this);
                 var classNames;
 
