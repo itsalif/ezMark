@@ -22,6 +22,7 @@
 *  hideClass       - class applied to the input
 *  hoverClass      - class applied while hovering over the label or div
 *  labelClass      - class applied to associated label for custom input
+*  disabledClass   - class applied to wrapping container (div) and associated label when input is disabled
 * </usage>
 * 
 * View Documention/Demo here:
@@ -35,20 +36,20 @@
 (function ($) {
     var NAMESPACE = 'ezmark';
     var DELEGATE_CLASS = NAMESPACE + '-del';
+    var defaultOptions = {
+        checkboxClass: NAMESPACE + '-checkbox',
+        radioClass: NAMESPACE + '-radio',
+        checkedClass: NAMESPACE + '-checked',
+        hideClass: NAMESPACE + '-hide',
+        hoverClass: NAMESPACE + '-hover',
+        labelClass: NAMESPACE + '-label',
+        labelCheckboxClass: NAMESPACE + '-label-checkbox',
+        labelRadioClass: NAMESPACE + '-label-radio',
+        disabledClass: NAMESPACE + '-disabled'
+    };
 
     $.fn.ezMark = function (options) {
-        var defaults = {
-            checkboxClass: NAMESPACE + '-checkbox',
-            radioClass: NAMESPACE + '-radio',
-            checkedClass: NAMESPACE + '-checked',
-            hideClass: NAMESPACE + '-hide',
-            hoverClass: NAMESPACE + '-hover',
-            labelClass: NAMESPACE + '-label',
-            labelCheckboxClass: NAMESPACE + '-label-checkbox',
-            labelRadioClass: NAMESPACE + '-label-radio'
-        };
-
-        $.extend(defaults, options);
+        var defaults = $.extend({}, defaultOptions, options);
 
         return this.each(function () {
             var type = this.type;
@@ -56,6 +57,7 @@
             if ((type === 'radio' || type === 'checkbox') && !$.data(this.parentNode, NAMESPACE)) {
                 var $this = $(this);
                 var classNames;
+                var isDisabled = !!this.disabled;
 
                 if (type === 'checkbox') {
                     classNames = {
@@ -70,14 +72,19 @@
                     };
                 }
 
-                $this.addClass(defaults.hideClass + ' ' + DELEGATE_CLASS).wrap('<div class="' + classNames.input + ' ' + DELEGATE_CLASS + '">');
+                classNames.disabled = defaults.disabledClass;
+
+                $this.addClass(defaults.hideClass + ' ' + DELEGATE_CLASS)
+                    .wrap('<div class="' +
+                        classNames.input + ' ' +
+                        DELEGATE_CLASS + (isDisabled ? ' ' + classNames.disabled : '') + '">');
                 var $parent = $this.parent();
 
                 if (this.checked) {
                     $parent.addClass(defaults.checkedClass);
                 }
 
-                $('label[for=' + this.id + ']').addClass(defaults.labelClass + ' ' + DELEGATE_CLASS + ' ' + classNames.label);
+                $('label[for=' + this.id + ']').addClass(defaults.labelClass + ' ' + DELEGATE_CLASS + ' ' + classNames.label + (isDisabled ? ' ' + classNames.disabled : ''));
                 $.data(
                     $parent[0],
                     NAMESPACE,
@@ -93,7 +100,7 @@
     };
 
     $(function () {
-        $(document.body).delegate('input.' + DELEGATE_CLASS, 'change', function () {
+        $(document.body).delegate('input.' + DELEGATE_CLASS, 'click', function ($e) {
             var $this = $(this);
             var type = this.type;
             var $parent = $this.parent();
