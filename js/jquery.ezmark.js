@@ -41,6 +41,10 @@
 	};
     return this.each(function() {
     	var $this = $(this);
+    	
+    	// back out if the object in question has already been wrapped in an ezMark wrappers
+        if($this.parent().hasClass(defaultOpt.checkboxCls) || $this.parent().hasClass(defaultOpt.radioCls)) return;
+    	
     	var wrapTag = $this.attr('type') == 'checkbox' ? '<div class="'+defaultOpt.checkboxCls+'">' : '<div class="'+defaultOpt.radioCls+'">';
     	// for checkbox
     	if( $this.attr('type') == 'checkbox') {
