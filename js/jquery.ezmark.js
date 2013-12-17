@@ -20,6 +20,8 @@
  *  checkedCls  - checkbox Checked State's Class
  *  radioCls    - custom radiobutton Class
  *  selectedCls - radiobutton's Selected State's Class
+ *  disabledCls - radiobutton's Disabled State's Class
+ *  hideCls		- radiobutton's Hidden State's Class
  *  
  * </usage>
  * 
@@ -35,24 +37,37 @@
   $.fn.ezMark = function(options) {
 	options = options || {}; 
 	var defaultOpt = { 
-		checkboxCls   	: options.checkboxCls || 'ez-checkbox' , radioCls : options.radioCls || 'ez-radio' ,	
-		checkedCls 		: options.checkedCls  || 'ez-checked'  , selectedCls : options.selectedCls || 'ez-selected' , 
-		hideCls  	 	: 'ez-hide'
+		checkboxCls	: options.checkboxCls || 'ez-checkbox' , 
+		radioCls	: options.radioCls    || 'ez-radio' ,	
+		checkedCls	: options.checkedCls  || 'ez-checked'  , 
+		selectedCls	: options.selectedCls || 'ez-selected' , 
+		disabledCls	: options.disabledCls || 'ez-disabled',
+		hideCls		: options.hideCls     || 'ez-hide'
 	};
     return this.each(function() {
     	var $this = $(this);
-    	var wrapTag = $this.attr('type') == 'checkbox' ? '<div class="'+defaultOpt.checkboxCls+'">' : '<div class="'+defaultOpt.radioCls+'">';
+        var customClasses = $(this).attr('class') || '';
+    	var wrapTag = $this.attr('type') == 'checkbox' ? '<div class="'+defaultOpt.checkboxCls+' '+customClasses+'">' : '<div class="'+defaultOpt.radioCls+' '+customClasses+'">';
     	// for checkbox
     	if( $this.attr('type') == 'checkbox') {
     		$this.addClass(defaultOpt.hideCls).wrap(wrapTag).change(function() {
     			if( $(this).is(':checked') ) { 
     				$(this).parent().addClass(defaultOpt.checkedCls); 
-    			} 
-    			else {	$(this).parent().removeClass(defaultOpt.checkedCls); 	}
+    			} else {	
+					$(this).parent().removeClass(defaultOpt.checkedCls); 	
+				}
+				if( $(this).is(':disabled') ) {
+					$(this).parent().addClass(defaultOpt.disabledCls);    		
+				} else {
+					$(this).parent().removeClass(defaultOpt.disabledCls); 	
+				}
     		});
     		
     		if( $this.is(':checked') ) {
 				$this.parent().addClass(defaultOpt.checkedCls);    		
+    		}
+    		if( $this.is('[disabled]') ) {
+				$this.parent().addClass(defaultOpt.disabledCls);    		
     		}
     	} 
     	else if( $this.attr('type') == 'radio') {
@@ -65,12 +80,20 @@
    	    			} else {
    	    				$(this).parent().removeClass(defaultOpt.selectedCls);     	    			
    	    			}
+					if( $(this).is(':disabled') ) {
+						$(this).parent().addClass(defaultOpt.disabledCls);    		
+					} else {
+						$(this).parent().removeClass(defaultOpt.disabledCls); 	
+					}
    				});
     		});
     		
     		if( $this.is(':checked') ) {
 				$this.parent().addClass(defaultOpt.selectedCls);    		
     		}    		
+			if( $this.is('[disabled]') ) {
+				$this.parent().addClass(defaultOpt.disabledCls);    		
+    		}
     	}
     });
   }
