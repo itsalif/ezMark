@@ -19,9 +19,10 @@
  *  checkboxCls - custom Checkbox Class
  *  checkedCls  - checkbox Checked State's Class
  *  radioCls    - custom radiobutton Class
- *  selectedCls - radiobutton's Selected State's Class
- *  disabledCls - radiobutton's Disabled State's Class
- *  hideCls     - radiobutton's Hidden State's Class
+ *  selectedCls - Selected State's Class
+ *  disabledCls - Disabled State's Class
+ *  focusCls    - Focus State's Class
+ *  hideCls     - Hidden State's Class
  *  
  * </usage>
  * 
@@ -43,6 +44,7 @@
 			checkedCls: options.checkedCls || 'ez-checked',
 			selectedCls: options.selectedCls || 'ez-selected',
 			disabledCls: options.disabledCls || 'ez-disabled',
+			focusCls: options.focusCls || 'ez-disabled',
 			hideCls: options.hideCls || 'ez-hide'
 		};
 		return this.each(function() {
@@ -62,6 +64,10 @@
 					} else {
 						$(this).parent().removeClass(defaultOpt.disabledCls);
 					}
+				}).focus(function() {
+					$(this).parent().addClass(defaultOpt.focusCls);
+				}).blur(function() {
+					$(this).parent().removeClass(defaultOpt.focusCls);
 				});
 
 				if ($this.is(':checked')) {
@@ -87,6 +93,10 @@
 							$(this).parent().removeClass(defaultOpt.disabledCls);
 						}
 					});
+				}).focus(function() {
+					$(this).parent().addClass(defaultOpt.focusCls);
+				}).blur(function() {
+					$(this).parent().removeClass(defaultOpt.focusCls);
 				});
 
 				if ($this.is(':checked')) {
@@ -97,5 +107,5 @@
 				}
 			}
 		});
-	}
+	};
 })(jQuery);
