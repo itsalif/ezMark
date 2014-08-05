@@ -6,12 +6,15 @@
     "Abdullah Rubiyath"
   ],
   "description": "Style checkbox and radio buttons with easily",
-  "main": "js/jquery.ezmark.min.js",
+  "main": ["js/jquery.ezmark.min.js", "js/jquery.ezmark.js", "css/ezmark.css"],
   "keywords": [
     "style checkbox",
     "custom form",
     "style radiobuttons"
   ],
+  "dependencies":{
+      "jquery": "*"
+  },
   "license": "MIT",
   "ignore": [
     "**/.*",
