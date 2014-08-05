@@ -1,0 +1,23 @@
+{
+  "name": "ezMark",
+  "version": "1.0",
+  "homepage": "https://github.com/haerde/ezMark",
+  "authors": [
+    "Abdullah Rubiyath"
+  ],
+  "description": "Style checkbox and radio buttons with easily",
+  "main": "js/jquery.ezmark.min.js",
+  "keywords": [
+    "style checkbox",
+    "custom form",
+    "style radiobuttons"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
