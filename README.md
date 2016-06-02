@@ -22,7 +22,7 @@ How to Use
   Declare the HTML tags as you normally would:
   
   <pre>
-  &lt;input type="checkbox" name="customerAge" id="age" /&gt;&lt;label for="age"&gt;Age&lt;label/&gt;
+  &lt;input type="checkbox" name="customerAge" id="age" /&gt;&lt;label for="age"&gt;Age&lt;/label&gt;
   </pre>
   
   
